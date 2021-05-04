@@ -7,24 +7,25 @@ from gamelib import Sprite, GameApp, Text
 
 from consts import *
 
-class SlowFruit(Sprite):
+class Fruit(Sprite):
+    def __init__(self, app, x, y):
+        super().__init__(app, image, x, y)
+        self.app = app
+
+class SlowFruit(Fruit):
     def __init__(self, app, x, y):
         super().__init__(app, 'images/apple.png', x, y)
-
         self.app = app
 
     def update(self):
-        self.y += FRUIT_SLOW_SPEED
+         self.y += FRUIT_FAST_SPEED
 
-        if self.y > CANVAS_WIDTH + 30:
-            self.to_be_deleted = True
+         if self.y > CANVAS_WIDTH + 30:
+             self.to_be_deleted = True
 
-
-class FastFruit(Sprite):
+class FastFruit(Fruit):
     def __init__(self, app, x, y):
         super().__init__(app, 'images/banana.png', x, y)
-
-        self.app = app
 
     def update(self):
         self.y += FRUIT_FAST_SPEED
@@ -32,13 +33,9 @@ class FastFruit(Sprite):
         if self.y > CANVAS_WIDTH + 30:
             self.to_be_deleted = True
 
-
-class SlideFruit(Sprite):
+class SlideFruit(Fruit):
     def __init__(self, app, x, y):
-        super().__init__(app, 'images/cherry.png', x, y)
-
-        self.app = app
-        self.direction = randint(0,1)*2 - 1
+        super().__init__(app, 'images/pear.png', x, y)
 
     def update(self):
         self.y += FRUIT_FAST_SPEED
@@ -47,13 +44,9 @@ class SlideFruit(Sprite):
         if self.y > CANVAS_WIDTH + 30:
             self.to_be_deleted = True
 
-
-class CurvyFruit(Sprite):
+class CurvyFruit(Fruit):
     def __init__(self, app, x, y):
-        super().__init__(app, 'images/pear.png', x, y)
-
-        self.app = app
-        self.t = randint(0,360) * 2 * math.pi / 360
+        super().__init__(app, 'images/apple.png', x, y)
 
     def update(self):
         self.y += FRUIT_SLOW_SPEED * 1.2
@@ -62,7 +55,6 @@ class CurvyFruit(Sprite):
 
         if self.y > CANVAS_WIDTH + 30:
             self.to_be_deleted = True
-
 
 class Basket(Sprite):
     def __init__(self, app, x, y):
